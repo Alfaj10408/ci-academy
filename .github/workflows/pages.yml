@@ -1,12 +1,10 @@
-name: Build, check and deploy CI Academy to GitHub Pages
+name: Build, check and publish CI Academy to GitHub Pages (gh-pages branch)
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -38,18 +36,9 @@ jobs:
         run: npm run build
         env:
           GH_PAGES: "1"
-      - uses: actions/configure-pages@v5
+      - name: Publish academy/dist to the gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: academy/dist
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: academy/dist
+          force_orphan: true
