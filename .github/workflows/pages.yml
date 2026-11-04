@@ -1,0 +1,55 @@
+name: Build, check and deploy CI Academy to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: academy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: academy/package-lock.json
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: npm ci
+      - name: Unit tests (math core and grading)
+        run: bun test src
+      - name: Render every page and step; KaTeX lint; click-through leak scan
+        run: |
+          bun --preload ./scripts/css-stub.ts scripts/ssr-smoke.tsx
+          bun --preload ./scripts/css-stub.ts scripts/tex-lint.ts
+          bun --preload ./scripts/css-stub.ts scripts/dom-leak-scan.ts
+      - name: Build for Pages
+        run: npm run build
+        env:
+          GH_PAGES: "1"
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: academy/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

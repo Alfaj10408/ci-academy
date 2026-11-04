@@ -1,0 +1,7 @@
+# course materials stay local: never publish PDFs or the extracted text
+*.pdf
+text/
+# build artefacts
+academy/node_modules/
+academy/dist/
+.DS_Store
