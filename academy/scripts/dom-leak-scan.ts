@@ -17,6 +17,7 @@ const { act } = await import('react-dom/test-utils')
 const mods: Record<string, () => Promise<{ default: () => JSX.Element }>> = {
   'module 1': () => import('../src/modules/ar-gmrf'), 'module 2': () => import('../src/modules/surrogate'),
   'module 3': () => import('../src/modules/mapopt'), 'module 4': () => import('../src/modules/prox').catch(() => ({ default: () => React.createElement('div') })),
+  'prereq map': () => import('../src/pages/Prereqs').then((m) => ({ default: () => m.Prereqs({}) })),
 }
 const LEAK = /\$|\\[A-Za-z]+|[A-Za-z0-9)]_\{|[A-Za-z0-9)]\^\{/g
 function visible(root: Element): string {
@@ -44,9 +45,13 @@ for (const [name, load] of Object.entries(mods)) {
   const root = createRoot(host as unknown as Element)
   await act(async () => { root.render(React.createElement(Mod)) })
   const tabs = Array.from(host.querySelectorAll('.tabs button'))
-  for (let t = 0; t < tabs.length; t++) {
-    await act(async () => { (host.querySelectorAll('.tabs button')[t] as HTMLElement).click() })
-    const tabName = (host.querySelectorAll('.tabs button')[t] as HTMLElement).textContent ?? ''
+  // a page without tabs (e.g. the prerequisite map) is scanned once as a single pseudo-tab
+  for (let t = 0; t < Math.max(1, tabs.length); t++) {
+    let tabName = 'page'
+    if (tabs.length) {
+      await act(async () => { (host.querySelectorAll('.tabs button')[t] as HTMLElement).click() })
+      tabName = (host.querySelectorAll('.tabs button')[t] as HTMLElement).textContent ?? ''
+    }
     scan(`${name} · ${tabName}`, host)
     // click every non-tab button repeatedly (hints, options, next step, views, start/submit), bounded
     for (let round = 0; round < 8; round++) {

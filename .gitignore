@@ -5,3 +5,5 @@ text/
 academy/node_modules/
 academy/dist/
 .DS_Store
+docs/factsheet-*
+docs/texput.log

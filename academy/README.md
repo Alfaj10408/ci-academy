@@ -15,7 +15,7 @@ npm test           # math core + grading tests (bun)
 npm run build      # type-check and production build
 bun --preload ./scripts/css-stub.ts scripts/ssr-smoke.tsx   # render every page/step without a browser; flags KaTeX errors, NaN and raw-LaTeX leaks
 npm run lint:tex   # render every $…$ segment in the source (hints, keys, solutions) with KaTeX throwOnError
-npm run lint:dom   # mount every module in happy-dom, click through tabs, hints, options, steps and exams; fail on any visible raw LaTeX
+npm run lint:dom   # mount every module and the prerequisite map in happy-dom, click through tabs, hints, options, steps and exams; fail on any visible raw LaTeX
 ```
 
 ## Layout
@@ -25,7 +25,7 @@ npm run lint:dom   # mount every module in happy-dom, click through tabs, hints,
 - `src/math/mapopt.ts` — MAP cost/gradient/Hessian, closed form, gradient descent, exact line search, ICD (slow and fast), conjugate gradient, Example 5.1 circulant model with h(ω), scalar MAP picture, 2-D level curves.
 - `src/math/prox.ts` — shrinkage, clips, proximal maps (grid and closed form for ½‖y−Ax‖²_Λ), ADMM with x = v, total-variation ADMM on a 1-D signal, the lecture-22 line-constraint example, the swap map and Mann iteration.
 - `src/math/grade.ts`, `src/math/latex.ts` — answer grading by numerical equivalence at random sample points; LaTeX-ish input normalizer. Matrix mode (`matVars`, `derived`) grades vector/matrix answers at random matrices with its own normalizer (`^t` transpose, `A_{*,i}`, `‖v‖`, `(…)^{-1}`, implicit products).
-- `src/data/` — lecture inventory (5–25), exam question inventory (2021–2025, original wording and instructor keys), prerequisite lessons.
+- `src/data/` — lecture inventory (5–25), exam question inventory (2021–2025, original wording and instructor keys), prerequisite lessons (`prereqs.ts`: 24 refreshers in five groups — signals and systems, probability, linear algebra and calculus, graphs and MRFs, optimization — each grounded in named lectures, most with a one-question self-check tagged with the lesson id).
 - `src/modules/ar-gmrf/` — Module 1 pathway: prerequisites → intuition → four-panel lab → derivation → worked example → guided practice → independent AR(2) problem → timed 2021 Q3 → feedback.
 - `src/modules/surrogate/` — Module 2 (surrogate functions / MM): same nine steps; worked 2021 Q4 + 2024 P2d–f, guided 2023 P3 (y = 3), independent Σ|x−x_k| / Huber a₂ / λ_max, timed 2021 Q4.
 - `src/modules/mapopt/` — Module 3 (MAP, gradient descent, ICD): worked 2023 P2 + 2022 Q4 (graded), guided 2024 P1, independent numeric 2×2 model, timed 2023 P2 or 2021 Q2.
