@@ -1,5 +1,6 @@
 import { useProgress, tagStats, recommend, progress } from '../store/progress'
 import { prereqById } from '../data/prereqs'
+import { Thumb } from '../components/Art'
 
 export function Progress() {
   const s = useProgress()
@@ -14,6 +15,7 @@ export function Progress() {
       <div className="cards">
         <div className="card"><h3>Problems solved independently</h3><p style={{ fontSize: 28, margin: 0 }}>{solvedIndependently}</p></div>
         <div className="card"><h3>Solved with hints</h3><p style={{ fontSize: 28, margin: 0 }}>{solvedWithHints}</p></div>
+        <div className="card card-portrait"><Thumb src="lesson-portrait" position="center 20%" /></div>
         <div className="card"><h3>Exam sessions</h3>{s.examSessions.filter((e) => e.finishedAt).map((e, i) => <p key={i}>{e.examId}: {e.score}/{e.max}</p>)}{!s.examSessions.length && <p className="muted">none yet</p>}</div>
       </div>
       <h2>Next best step</h2>

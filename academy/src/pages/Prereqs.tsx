@@ -3,7 +3,10 @@ import { prereqs, prereqGroups, type PrereqGroup } from '../data/prereqs'
 import { MathText } from '../components/Tex'
 import { Choice } from '../components/ui'
 import { widgets } from '../components/prereq-widgets'
+import { Thumb } from '../components/Art'
 import { useProgress, tagStats } from '../store/progress'
+
+const groupArt: Record<PrereqGroup, string> = { 'Signals and systems': 'topic-signals', 'Probability and Gaussian models': 'topic-probability', 'Linear algebra and calculus': 'topic-convolution', 'Graphs and Markov random fields': 'dashboard-feature', 'Optimization': 'topic-optimization' }
 
 const blurb: Record<PrereqGroup, string> = {
   'Signals and systems': 'Deltas, filters, spectra, and why a convolution is secretly a matrix. Lectures 5, 7, 8, 10, 13.',
@@ -39,7 +42,7 @@ export function Prereqs({ id }: { id?: string }) {
             })}
           </div>
         )}
-      {!single && <p className="muted">{blurb[tab]}</p>}
+      {!single && <div className="intro-row"><Thumb src={groupArt[tab]} className="intro-thumb" /><p className="muted">{blurb[tab]}</p></div>}
       <div className="lesson-list">
         {list.map((p) => {
           const st = stats[p.id]

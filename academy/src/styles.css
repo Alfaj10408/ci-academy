@@ -397,3 +397,32 @@ tbody tr:hover { background: var(--tint-2); }
 .progress-strip { height: 8px; background: var(--card-bg-2); border-radius: 999px; overflow: hidden; margin: 8px 0 2px; max-width: 880px; border: 1px solid var(--line); }
 .progress-strip div { height: 100%; background: linear-gradient(to right, var(--ok), oklch(0.7 0.15 170)); transition: width 300ms ease; }
 .why { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+/* ---------- decorative artwork (fuwari_imaging_assets) ---------- */
+.banner { position: relative; overflow: hidden; border-radius: var(--radius-large); margin: 0 0 14px; background: var(--card-bg-2); border: 1px solid var(--line); }
+.banner img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 600ms ease; }
+.banner:hover img { transform: scale(1.02); }
+.hero-banner { margin-bottom: -40px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.hero-banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, var(--card-bg) 100%); pointer-events: none; }
+.hero { border-top-left-radius: 0; border-top-right-radius: 0; }
+.divider-banner { margin: 22px 0 4px; }
+.intro-row { display: flex; gap: 16px; align-items: center; max-width: 880px; margin: 4px 0 12px; }
+.intro-row .intro-thumb { width: 180px; height: 120px; aspect-ratio: 3 / 2; border-radius: var(--radius); flex: none; border: 1px solid var(--line); }
+@media (max-width: 600px) { .intro-row .intro-thumb { width: 110px; height: 73px; } }
+.lab-banner { margin-bottom: 12px; }
+.thumb { display: block; width: 100%; object-fit: cover; }
+.module-card { padding: 0; overflow: hidden; }
+.module-card > * { margin-left: 18px; margin-right: 18px; }
+.module-card .module-thumb { margin: 0 0 6px; aspect-ratio: 16 / 7; width: 100%; }
+.module-card .module-head { margin-top: 10px; }
+.module-card .module-foot { margin-bottom: 16px; }
+.card-with-thumb { padding-top: 0; overflow: hidden; }
+.card-with-thumb .card-thumb { margin: 0 -18px 10px; width: calc(100% + 36px); aspect-ratio: 3 / 1; }
+.card-portrait { padding: 0; overflow: hidden; min-height: 150px; }
+.card-portrait .thumb { height: 100%; min-height: 150px; }
+.avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; margin: 2px 8px 8px; border: 3px solid var(--tint); box-shadow: var(--shadow-card); }
+.footer { background-position: center; background-size: cover; background-repeat: no-repeat; background-color: var(--card-bg-2); border-radius: var(--radius-large); position: relative; overflow: hidden; padding: 16px 20px; margin-bottom: 16px; }
+.footer::before { content: ""; position: absolute; inset: 0; background: color-mix(in oklab, var(--card-bg) 78%, transparent); }
+.footer > * { position: relative; }
+@media (prefers-reduced-motion: reduce) { .banner img { transition: none; } .banner:hover img { transform: none; } }
+@media (max-width: 900px) { .hero-banner { height: 170px !important; } .card-portrait { display: none; } }

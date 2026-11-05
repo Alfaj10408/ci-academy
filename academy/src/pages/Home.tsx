@@ -2,6 +2,9 @@ import { useProgress, recommend } from '../store/progress'
 import { prereqById, prereqs } from '../data/prereqs'
 import { exams } from '../data/exams'
 import { modules } from '../data/modules'
+import { Banner, Thumb } from '../components/Art'
+
+const thumbs: Record<string, string> = { 'ar-gmrf': 'topic-probability', surrogate: 'topic-optimization', mapopt: 'topic-imaging', prox: 'restoration-feature' }
 
 const blurbs: Record<string, string> = {
   'ar-gmrf': 'Causal AR(1) → noncausal GMRF: power spectrum, noncausal filter, precision matrix. Targets 2021 Q3, 2025 P1 and 2022 Q2.',
@@ -21,6 +24,7 @@ export function Home() {
   const doneIn = (id: string) => Object.keys(s.completedSteps).filter((k) => k.startsWith(`${id}/`)).length
   return (
     <div>
+      <Banner src="hero-home" height={250} position="center 35%" eager className="hero-banner" />
       <section className="hero">
         <div className="hero-kicker">ECE 60141 · Purdue · Bouman</div>
         <h1>Computational Imaging Mathematics Academy</h1>
@@ -45,6 +49,7 @@ export function Home() {
           const n = doneIn(m.id)
           return (
             <article className="card module-card" key={m.id}>
+              <Thumb src={thumbs[m.id]} className="module-thumb" eager />
               <div className="module-head"><span className="module-num">{m.n}</span><h3>{m.title}</h3></div>
               <p>{blurbs[m.id]}</p>
               <div className="row">{m.targets.map((t) => <span className="pill" key={t}>{t}</span>)}</div>
@@ -64,13 +69,15 @@ export function Home() {
           {rec ? <p>Recommended next: <a href={`#/prereqs/${rec.id}`}>{prereqById[rec.id]?.name ?? rec.id}</a>. <span className="muted small">{rec.reason}</span></p> : <p className="muted">Recommendations appear once you have attempted a few problems.</p>}
           <a href="#/progress">Progress &amp; weaknesses →</a>
         </div>
-        <div className="card">
+        <div className="card card-with-thumb">
+          <Thumb src="topic-exam-solving" className="card-thumb" />
           <h3>Exam patterns</h3>
           <p>{exams.length} questions across 5 midterms. Surrogate functions, MAP ↔ forward model, and proximal maps each appear in 4 of 5 years; AR ↔ GMRF in 3 of 5.</p>
           <a href="#/exams">Exam trainer →</a>
         </div>
       </div>
 
+      <Banner src="landscape-divider" height={90} className="divider-banner" />
       <h2>Learning roadmap</h2>
       <ol className="roadmap">
         <li><strong>Signals foundation → AR / GMRF</strong> (lectures 5, 7, 9, 10, 11). Module 1, available now.</li>

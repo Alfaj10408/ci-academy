@@ -2,12 +2,13 @@ import { moduleNames } from '../data/course'
 import { lectures } from '../data/course'
 import { exams } from '../data/exams'
 import { MathText } from '../components/Tex'
+import { Thumb } from '../components/Art'
 
 export function Lectures() {
   return (
     <div>
-      <h1>Lecture navigator</h1>
-      <p className="muted">Lectures 5–25 with chapter references, core ideas, and the midterm questions that depend on each lecture.</p>
+      <div className="intro-row"><Thumb src="topic-fourier-spectrum" className="intro-thumb" /><div><h1>Lecture navigator</h1>
+      <p className="muted">Lectures 5–25 with chapter references, core ideas, and the midterm questions that depend on each lecture.</p></div></div>
       <table>
         <thead><tr><th>Lec</th><th>Title</th><th>Book</th><th>Core ideas</th><th>Exam questions</th><th>Module</th></tr></thead>
         <tbody>

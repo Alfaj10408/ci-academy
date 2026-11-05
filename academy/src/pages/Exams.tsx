@@ -4,12 +4,14 @@ import { exams, examById, patterns } from '../data/exams'
 import { prereqById } from '../data/prereqs'
 import { MathText } from '../components/Tex'
 import { Callout } from '../components/ui'
+import { Banner } from '../components/Art'
 
 export function Exams({ id }: { id?: string }) {
   if (id && examById[id]) return <Question q={examById[id]} />
   const years = [...new Set(exams.map((q) => q.year))].sort()
   return (
     <div>
+      <Banner src="exam-practice-strip" height={150} position="center 40%" />
       <h1>Past midterm exam trainer</h1>
       <p className="muted">Original wording preserved from the midterm PDFs. All five papers come with the instructor’s key; where text extraction garbled a matrix, the app recomputes it numerically and says so.</p>
       <h2>Repeated patterns</h2>

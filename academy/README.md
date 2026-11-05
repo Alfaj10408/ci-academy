@@ -48,6 +48,10 @@ Expression answers are compared numerically to the reference at 24 pseudo-random
 
 `src/styles.css` is a token-based design system: every colour derives from one accent hue (`--hue`) in OKLCH, with light and dark palettes selected by `data-theme` on `<html>` (or the system preference when unset). The token set and card/button language are adapted from [Fuwari](https://github.com/saicaca/fuwari) (MIT, © 2024 saicaca); the app itself is not a blog template. `src/store/theme.ts` persists hue and mode under its own localStorage key (`ci-academy-theme-v1`), separate from learning progress, and `index.html` applies the saved theme before first paint. Legacy variable names (`--bg`, `--panel`, `--accent`, …) are aliases of the new tokens so components and SVG plots keep working. Animations are light and disabled under `prefers-reduced-motion`.
 
+## Artwork
+
+`public/img/` holds the `fuwari_imaging_assets` WebP pack (decorative anime illustrations, green accent). `src/components/Art.tsx` resolves them under the Vite base path and renders them as decorative images (`alt=""`, `aria-hidden`, lazy unless above the fold). Placements: dashboard hero banner, module-card and exam-card thumbnails, divider, sidebar avatar, exam-list and Visual-Lab strips, lecture/refresher intro thumbnails, progress portrait, footer texture, OpenGraph preview. No artwork is placed inside answer boxes, derivations or the timed exam.
+
 ## Rendering math without leaks
 
 All math goes through `Tex` (KaTeX) or `MathText` (`$…$` segments inside prose). Plain JSX text and SVG plot labels cannot render LaTeX, so they use words or Unicode subscripts (Cₖ, Xₙ₋₁). Three checks keep this honest: the SSR smoke test strips KaTeX output and fails on any visible `$`, `\cmd`, `_{` or `^{`; `npm run lint:tex` renders every `$…$` segment in the source with `throwOnError`; and `npm run lint:dom` mounts each module in happy-dom and clicks through every tab, hint, option, step and exam flow, scanning the visible text after each click (this is what catches text that only appears after interaction). JSX attribute strings keep doubled backslashes, which `Tex` folds before rendering.

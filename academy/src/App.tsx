@@ -12,6 +12,7 @@ import { useProgress, recommend } from './store/progress'
 import { useTheme, theme, huePresets } from './store/theme'
 import { prereqById } from './data/prereqs'
 import { modules } from './data/modules'
+import { art } from './components/Art'
 
 export type Route = { page: string; arg?: string }
 
@@ -118,6 +119,7 @@ export function App() {
           </div>
           <div className="side-section side-progress">
             <div className="nav-group">Your progress</div>
+            <img className="avatar" src={art('profile-avatar')} alt="" loading="lazy" decoding="async" aria-hidden="true" />
             <div className="small">{totalDone} steps · {s.attempts.length} attempts · {s.examSessions.filter((e) => e.finishedAt).length} exams</div>
             {rec && <div className="small muted">Next: <a href={`#/prereqs/${rec.id}`}>{prereqById[rec.id]?.name ?? rec.id}</a></div>}
           </div>
@@ -125,7 +127,7 @@ export function App() {
         {drawer && <div className="drawer-backdrop" onClick={() => setDrawer(false)} />}
         <main className="content card-base onload" key={`${r.page}/${r.arg ?? ''}`}>{body}</main>
       </div>
-      <footer className="footer small muted">CI Academy · built from the ECE 60141 lectures, midterm keys and <em>Foundations of Computational Imaging</em>. Theme tokens adapted from <a href="https://github.com/saicaca/fuwari" target="_blank" rel="noreferrer">Fuwari</a> (MIT).</footer>
+      <footer className="footer small muted" style={{ backgroundImage: `url(${art('subtle-waves-background')})` }}>CI Academy · built from the ECE 60141 lectures, midterm keys and <em>Foundations of Computational Imaging</em>. Theme tokens adapted from <a href="https://github.com/saicaca/fuwari" target="_blank" rel="noreferrer">Fuwari</a> (MIT).</footer>
     </div>
   )
 }

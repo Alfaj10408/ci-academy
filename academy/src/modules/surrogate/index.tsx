@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useProgress } from '../../store/progress'
+import { Banner } from '../../components/Art'
 import { PrereqStep } from './Prereqs'
 import { Intuition } from './Intuition'
 import { Lab } from './Lab'
@@ -35,6 +36,7 @@ export default function SurrogateModule() {
       <div className="tabs">
         {steps.map((st, k) => <button key={st.key} className={`${k === i ? 'active' : ''} ${done(st.ids) ? 'done' : ''}`} onClick={() => setI(k)}>{k + 1}. {st.label}</button>)}
       </div>
+      {steps[i].key === 'lab' && <Banner src="visual-lab-strip" height={110} position="center 55%" className="lab-banner" />}
       {steps[i].view()}
       <div className="row" style={{ marginTop: 24 }}>
         {i > 0 && <button className="btn btn-ghost" onClick={() => setI(i - 1)}>← {steps[i - 1].label}</button>}
