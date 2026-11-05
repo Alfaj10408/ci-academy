@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Interactive mathematics academy for ECE 60141 Computational Imaging: AR and GMRF models, MAP estimation, surrogate functions, proximal maps and ADMM, with past midterm practice." />
+    <meta property="og:title" content="CI Academy — Computational Imaging Mathematics" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://alfaj10408.github.io/ci-academy/img/social-preview.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>CI Academy — Computational Imaging Mathematics</title>
+    <script>
+      // apply the saved theme before first paint (hue + light/dark), see src/store/theme.ts
+      try {
+        var t = JSON.parse(localStorage.getItem('ci-academy-theme-v1') || '{}');
+        if (typeof t.hue === 'number') document.documentElement.style.setProperty('--hue', t.hue);
+        if (t.mode === 'light' || t.mode === 'dark') document.documentElement.setAttribute('data-theme', t.mode);
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/ci-academy/assets/index-xbnlyykd.js"></script>
+    <link rel="stylesheet" crossorigin href="/ci-academy/assets/index-D-NrJG9-.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
