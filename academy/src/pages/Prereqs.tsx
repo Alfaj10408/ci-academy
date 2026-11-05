@@ -4,11 +4,14 @@ import { MathText } from '../components/Tex'
 import { Choice } from '../components/ui'
 import { widgets } from '../components/prereq-widgets'
 import { Thumb } from '../components/Art'
+import { Figure } from '../components/figures'
+import { Videos } from '../components/Video'
 import { useProgress, tagStats } from '../store/progress'
 
-const groupArt: Record<PrereqGroup, string> = { 'Signals and systems': 'topic-signals', 'Probability and Gaussian models': 'topic-probability', 'Linear algebra and calculus': 'topic-convolution', 'Graphs and Markov random fields': 'dashboard-feature', 'Optimization': 'topic-optimization' }
+const groupArt: Record<PrereqGroup, string> = { 'Filters from scratch': 'topic-convolution', 'Signals and systems': 'topic-signals', 'Probability and Gaussian models': 'topic-probability', 'Linear algebra and calculus': 'topic-exam-solving', 'Graphs and Markov random fields': 'dashboard-feature', 'Optimization': 'topic-optimization' }
 
 const blurb: Record<PrereqGroup, string> = {
+  'Filters from scratch': 'Start here if “filter”, “impulse response”, “IIR”, “LSI” or “whitening” feel foggy: six short lessons with everyday pictures, diagrams and videos. Lectures 5, 7, 12, 13.',
   'Signals and systems': 'Deltas, filters, spectra, and why a convolution is secretly a matrix. Lectures 5, 7, 8, 10, 13.',
   'Probability and Gaussian models': 'The bowl-shaped density and how to read a predictor off the precision matrix. Lectures 6, 9–11.',
   'Linear algebra and calculus': 'Gradients of quadratics, eigenvalues as stiffness, parabolas that kiss a curve, and the five shapes you sketch. Lectures 12–19, 23.',
@@ -52,11 +55,13 @@ export function Prereqs({ id }: { id?: string }) {
               <h3>{p.name}</h3>
               <div className="small muted">Lectures {p.lectures.join(', ')}{p.dependsOn && <> · builds on {p.dependsOn.map((d) => <a key={d} href={`#/prereqs/${d}`}>{prereqs.find((x) => x.id === d)?.name}</a>).reduce<ReactNode[]>((acc, el, i) => (i ? [...acc, ', ', el] : [el]), [])}</>}</div>
               <div className="hook"><MathText>{p.hook}</MathText></div>
+              {p.figure && <Figure id={p.figure} />}
               {W && W()}
               <ul className="mathlist">{p.bullets.map((b, i) => <li key={i}><MathText>{b}</MathText></li>)}</ul>
               {p.why && <MathText className="why">{`Why it matters: ${p.why}`}</MathText>}
               {p.check && <Choice id={`prereqs/${p.id}`} module="prereqs" tags={[p.id]} mode="prereq" question={p.check.question} options={p.check.options} answer={p.check.answer} explain={p.check.explain} />}
               <details><summary>Full lesson</summary><MathText>{p.lesson}</MathText></details>
+              <Videos list={p.videos} />
               {st && <span className={`pill ${st.wrong > st.right ? 'pill-warn' : 'pill-ok'}`}>{st.right} right · {st.wrong} wrong</span>}
             </article>
           )

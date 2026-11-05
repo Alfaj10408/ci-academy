@@ -48,6 +48,10 @@ Expression answers are compared numerically to the reference at 24 pseudo-random
 
 `src/styles.css` is a token-based design system: every colour derives from one accent hue (`--hue`) in OKLCH, with light and dark palettes selected by `data-theme` on `<html>` (or the system preference when unset). The token set and card/button language are adapted from [Fuwari](https://github.com/saicaca/fuwari) (MIT, © 2024 saicaca); the app itself is not a blog template. `src/store/theme.ts` persists hue and mode under its own localStorage key (`ci-academy-theme-v1`), separate from learning progress, and `index.html` applies the saved theme before first paint. Legacy variable names (`--bg`, `--panel`, `--accent`, …) are aliases of the new tokens so components and SVG plots keep working. Animations are light and disabled under `prefers-reduced-motion`.
 
+## Refresher figures and videos
+
+`src/components/figures.tsx` holds inline SVG concept diagrams (impulse response, FIR vs IIR, LTI, frequency response, whitening/synthesis, blur inverse, Toeplitz/circulant, MRF graph, convex bowl, springs, contraction, kink) rendered on the refresher cards. `src/components/Video.tsx` renders video boxes without iframes: entries with an id were verified through YouTube's oEmbed endpoint (title and channel copied from the response) and show a thumbnail from YouTube's image CDN; topics with no verified video get an explicit "search YouTube" box instead of a guessed link.
+
 ## Artwork
 
 `public/img/` holds the `fuwari_imaging_assets` WebP pack (decorative anime illustrations, green accent). `src/components/Art.tsx` resolves them under the Vite base path and renders them as decorative images (`alt=""`, `aria-hidden`, lazy unless above the fold). Placements: dashboard hero banner, module-card and exam-card thumbnails, divider, sidebar avatar, exam-list and Visual-Lab strips, lecture/refresher intro thumbnails, progress portrait, footer texture, OpenGraph preview. No artwork is placed inside answer boxes, derivations or the timed exam.
