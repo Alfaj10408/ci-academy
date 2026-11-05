@@ -115,3 +115,26 @@ th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: upp
 .toggle button { background: var(--panel-2); border: 0; padding: 5px 10px; cursor: pointer; color: var(--text); font-size: 13px; }
 .toggle button.active { background: var(--accent); color: #fff; }
 .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
+
+/* prerequisite refreshers */
+.lesson-list { display: flex; flex-direction: column; gap: 14px; max-width: 860px; }
+.lesson { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.lesson h3 { font-size: 17px; }
+.lesson.done h3::before { content: "✓ "; color: var(--ok); }
+.hook { font-size: 16px; line-height: 1.5; border-left: 4px solid var(--accent-2); background: var(--panel-2); padding: 8px 12px; border-radius: 6px; margin: 8px 0; }
+.hook p { margin: 0; }
+.mathlist { margin: 6px 0 4px; padding-left: 1.2em; }
+.mathlist li { margin: 3px 0; }
+.mathlist li p { margin: 0; }
+.widget { background: var(--panel-2); border-radius: 10px; padding: 10px 12px; margin: 8px 0; }
+.widget .slider { grid-template-columns: 140px 1fr 56px; }
+.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; align-items: start; }
+.seg { display: inline-flex; gap: 0; margin: 2px 8px 6px 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { background: var(--panel); color: var(--text); border: 0; padding: 4px 10px; font-size: 13px; cursor: pointer; }
+.seg button.active { background: var(--accent); color: #fff; }
+.pixgrid { display: block; max-width: 100%; height: auto; }
+.lesson details { margin-top: 6px; }
+.lesson summary { cursor: pointer; color: var(--accent); font-size: 14px; }
+.progress-strip { height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; margin: 6px 0 2px; max-width: 860px; }
+.progress-strip div { height: 100%; background: var(--ok); }
+.why { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
