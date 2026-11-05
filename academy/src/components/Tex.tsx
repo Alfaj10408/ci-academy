@@ -6,7 +6,7 @@ import { useMemo } from 'react'
  * JSX attribute strings (question="…\\omega…") keep their backslashes doubled, unlike JS string literals.
  * A doubled backslash before a letter is never intended LaTeX in this app (it would be a line break), so fold it.
  */
-export const unescape = (s: string) => s.replace(/\\\\(?=[A-Za-z#{}|])/g, '\\')
+export const unescape = (s: string) => s.replace(/\\\\(?=[A-Za-z#{}|,;:! ])/g, '\\')
 
 export function Tex({ children, block = false, className }: { children: string; block?: boolean; className?: string }) {
   const html = useMemo(() => {

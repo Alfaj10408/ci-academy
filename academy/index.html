@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>CI Academy — Computational Imaging Mathematics</title>
+    <script>
+      // apply the saved theme before first paint (hue + light/dark), see src/store/theme.ts
+      try {
+        var t = JSON.parse(localStorage.getItem('ci-academy-theme-v1') || '{}');
+        if (typeof t.hue === 'number') document.documentElement.style.setProperty('--hue', t.hue);
+        if (t.mode === 'light' || t.mode === 'dark') document.documentElement.setAttribute('data-theme', t.mode);
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -44,6 +44,10 @@ npm run lint:dom   # mount every module and the prerequisite map in happy-dom, c
 
 Expression answers are compared numerically to the reference at 24 pseudo-random points (relative tolerance 1e-7). This accepts any algebraically equivalent form but is not a symbolic proof; the UI says so. Surrogate answers may be graded up to an additive term that is constant in the argument variable (`upToConstant: 'x'`), because a surrogate is defined up to a shift c(x′). Primes are accepted as `x'`, `x′`, `x^\prime` or `xp`. Free-text exam parts are self-graded against the instructor key.
 
+## Visual design
+
+`src/styles.css` is a token-based design system: every colour derives from one accent hue (`--hue`) in OKLCH, with light and dark palettes selected by `data-theme` on `<html>` (or the system preference when unset). The token set and card/button language are adapted from [Fuwari](https://github.com/saicaca/fuwari) (MIT, © 2024 saicaca); the app itself is not a blog template. `src/store/theme.ts` persists hue and mode under its own localStorage key (`ci-academy-theme-v1`), separate from learning progress, and `index.html` applies the saved theme before first paint. Legacy variable names (`--bg`, `--panel`, `--accent`, …) are aliases of the new tokens so components and SVG plots keep working. Animations are light and disabled under `prefers-reduced-motion`.
+
 ## Rendering math without leaks
 
 All math goes through `Tex` (KaTeX) or `MathText` (`$…$` segments inside prose). Plain JSX text and SVG plot labels cannot render LaTeX, so they use words or Unicode subscripts (Cₖ, Xₙ₋₁). Three checks keep this honest: the SSR smoke test strips KaTeX output and fails on any visible `$`, `\cmd`, `_{` or `^{`; `npm run lint:tex` renders every `$…$` segment in the source with `throwOnError`; and `npm run lint:dom` mounts each module in happy-dom and clicks through every tab, hint, option, step and exam flow, scanning the visible text after each click (this is what catches text that only appears after interaction). JSX attribute strings keep doubled backslashes, which `Tex` folds before rendering.
